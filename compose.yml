@@ -1,0 +1,18 @@
+services:
+  docker-arduino:
+    build: .
+    environment:
+      - DISPLAY=:0
+      - PULSE_SERVER=/mnt/wslg/PulseServer
+      - WAYLAND_DISPLAY=wayland-0
+      - XDG_RUNTIME_DIR=/mnt/wslg/runtime-dir
+    tty: true
+    stdin_open: true
+    privileged: true
+    volumes:
+      - \\wsl.localhost\${DISTRIBUTION}\mnt\wslg:/mnt/wslg
+      - \\wsl.localhost\${DISTRIBUTION}\tmp\.X11-unix:/tmp/.X11-unix
+      - \\wsl.localhost\${DISTRIBUTION}${LIB_PATH}:/root/Arduino/libraries 
+      - \\wsl.localhost\${DISTRIBUTION}${SKETCH_PATH}${SKETCH_NAME}:/home/${SKETCH_NAME}
+    command: arduino /home/${SKETCH_NAME}/${SKETCH_NAME}.ino
+    container_name: docker-arduino
