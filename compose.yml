@@ -17,6 +17,6 @@ services:
       # ライブラリの共有ボリューム
       - \\wsl.localhost\${DISTRIBUTION}${LIB_PATH}:/root/Arduino/libraries
       # スケッチの共有ボリューム
-      - \\wsl.localhost\${DISTRIBUTION}${SKETCH_PATH}${SKETCH_NAME}:/home/${SKETCH_NAME}
+      - \\wsl.localhost\${DISTRIBUTION}${SKETCH_PATH}\${SKETCH_NAME}:/home/${SKETCH_NAME}
     command: arduino /home/${SKETCH_NAME}/${SKETCH_NAME}.ino
     container_name: docker-arduino
