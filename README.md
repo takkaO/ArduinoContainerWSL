@@ -76,7 +76,7 @@ Windows 上で実行した Arduino IDE と WSLg + Docker 上で実行した Ardu
 ### 0. WSL2 の更新
 
 WSL の導入と Docker の導入は完了しているものとします。  
-最初に Windows Terminal を開き、下記コマンドを実行します。
+最初に Windows Terminal を管理者権限で開き、下記コマンドを実行します。
 
 ```console
 > wsl --update
@@ -88,7 +88,7 @@ WSL の導入と Docker の導入は完了しているものとします。
 Windows Terminal で下記コマンドを実行します。
 
 ```console
-> winget install --interactive --exact dorssel.usbipd-wi
+> winget install --interactive --exact dorssel.usbipd-win
 ```
 
 WSL2 を開き、下記コマンドを実行します。
@@ -151,18 +151,18 @@ WSL2 から Windows へ接続を戻す場合は、下記コマンドを使用し
 
 コンテナ内の Arduino で使用したいライブラリとスケッチを移動します。  
 
-Docker コンテナ内で使用するライブラリやスケッチを後で説明する docker-compose から直接ボリュームを共有することもできますが、WSL2 内から Windows 領域へのファイルアクセスが非常に遅いため、ビルド時にボトルネックになってしまいます。  
+Docker コンテナ内で使用するライブラリやスケッチを後で説明する docker-compose から直接ボリューム共有することもできますが、WSL2 内から Windows 領域へのファイルアクセスが非常に遅いため、ビルド時にボトルネックになってしまいます。  
 それを回避するために初めから WSL2 内部にファイルを移動しておこうという作戦です。
 
 <img src="https://raw.githubusercontent.com/takkaO/ArduinoContainerWSL/images/fig_flow.png" width="500px">
 
 まず、Windows 側からエクスプローラを開きます。  
-私がインストールしているディストリビューションは Ubuntu なので、左側のリストの一番下に「Ubuntu」とあります。  
+私がインストールしているディストリビューションは Ubuntu なので、左側のリストの一番下に「Ubuntu」とあります。
 ディストリビューションが異なる場合は適宜読み替えてください。  
 そこをクリックして任意のフォルダ内にライブラリとスケッチをコピーします。  
 本記事では下記のようにします。  
 
-ライブラリ：**/home/usr/Arduino/libraries**
+ライブラリ：**/home/usr/Arduino/libraries**  
 スケッチ　：**/home/usr/ArduinoSketch**
 
 <img src="https://raw.githubusercontent.com/takkaO/ArduinoContainerWSL/images/fig_explorer1.png" width="650px">
@@ -240,12 +240,14 @@ Linux 上の Arduino IDE だと ESP32 のコンパイルが早いという特徴
 
 -   **利点**
     -   簡単にスクラップ＆ビルドができる
+    -   Arduino IDE と完全互換
     -   環境を独立させることができる
-    -   Windows を利用しながらビルドを高速化できる
+    -   Windows を利用しながらビルドを約 3.4 倍高速化できる
 -   **欠点**
     -   環境構築がやや面倒
     -   USB 接続の際にひと手間必要
     -   事前にライブラリやスケッチの移動が必要（WSL2 が遅いから）
+    -   Docker イメージが巨大 (6GB)
 
 ## References
 
